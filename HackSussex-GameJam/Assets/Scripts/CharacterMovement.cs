@@ -42,6 +42,11 @@ public class CharacterMovement : MonoBehaviour
                 onFloor = false;
             }
 
+            if (Input.GetKeyDown(KeyCode.Q))
+            {
+                animator.SetTrigger("AttackTrigger");
+            }
+
         }
     }
 

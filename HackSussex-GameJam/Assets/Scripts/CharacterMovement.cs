@@ -36,21 +36,15 @@ public class CharacterMovement : MonoBehaviour
 
     void CheckControls()
     {
-        if (onFloor)
-        {
-            animator.SetFloat("Horizontal", Input.GetAxis("Horizontal"));
-            Vector3 horizontal = new Vector3(Input.GetAxis("Horizontal"), 0.0f, 0.0f);
-            transform.position = transform.position + horizontal * Time.deltaTime;
+        animator.SetFloat("Horizontal", Input.GetAxis("Horizontal"));
+        horizontal = Input.GetAxisRaw("Horizontal");
+        characterBody.velocity = new Vector2(horizontal * moveSpeed, characterBody.velocity.y);
 
             if (Input.GetKeyDown(KeyCode.Space))
             {
                 characterBody.velocity = Vector2.up * jump;
                 onFloor = false;
             }
-
-            characterBody.velocity = Vector2.up * jump;
-            onFloor = false;
-        }
 
         if (Input.GetKeyDown(KeyCode.X))
         {

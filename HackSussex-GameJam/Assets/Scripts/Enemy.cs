@@ -5,22 +5,34 @@ using UnityEngine;
 public class Enemy : MonoBehaviour
 {
     [SerializeField]
-    private int health;
-
+    protected int health;
+    [SerializeField]
+    protected List<SkillType> vulnerabilities;
     // Start is called before the first frame update
-    void Start()
+    protected virtual void Start()
     {
-        
+        health = 100;
     }
 
-    // Update is called once per frame
-    void Update()
+    protected virtual void TakeDamage(SkillType skillType)
     {
-        
+        foreach(SkillType skill in vulnerabilities)
+        {
+            if(skill == skillType)
+            {
+                health -= skill.Damage * 2;
+            }
+            else
+            {
+                health -= skill.Damage;
+            }
+        }
+
+        if(health <= 0)
+        {
+            Destroy(this.gameObject);
+        }
     }
 
-    void Attack()
-    {
 
-    }
 }

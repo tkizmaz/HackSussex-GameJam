@@ -8,7 +8,10 @@ public class SkillType : ScriptableObject
 {
     [SerializeField]
     private GameObject skillPrefab;
-    
+    private int damage;
+
+    public int Damage { get; set; }
+
     public void SpawnPrefabEffect(Vector3 spawnPosition, bool isFacingRight)
     {
         int direction = isFacingRight ? 1 : -1;

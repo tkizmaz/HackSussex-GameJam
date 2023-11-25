@@ -20,10 +20,16 @@ public class CharacterMovement : MonoBehaviour
     [SerializeField]
     private Transform spawnPoint;
     private bool isFacingRight = true;
+    private int health = 100;
+    private List<SkillType> skillInventory;
 
+
+    [SerializeField]
+    private List<SkillType> skills;
     // Start is called before the first frame update
     void Start()
     {
+        skillInventory = new List<SkillType>();
         characterBody = this.GetComponent<Rigidbody2D>();
         horizontal = 1f;
     }
@@ -49,7 +55,6 @@ public class CharacterMovement : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.X))
         {
             Attack();
-            animator.SetTrigger("AttackTrigger");
         }
         Flip();
     }
@@ -60,11 +65,43 @@ public class CharacterMovement : MonoBehaviour
         {
             onFloor = true;
         }
+
+        else if(collision.gameObject.tag == "Fire")
+        {
+            if(skillInventory.Count < 2)
+            {
+                skillInventory.Add(skills[0]);
+                Destroy(collision.gameObject);
+            }
+        }
+
+        else if (collision.gameObject.tag == "Lightning")
+        {
+            if (skillInventory.Count < 2)
+            {
+                skillInventory.Add(skills[1]);
+                Destroy(collision.gameObject);
+            }
+        }
+
+        else if (collision.gameObject.tag == "Water")
+        {
+            if (skillInventory.Count < 2)
+            {
+                skillInventory.Add(skills[2]);
+                Destroy(collision.gameObject);
+            }
+        }
     }
 
     private void Attack()
     {
-        skillType.SpawnPrefabEffect(spawnPoint.position, isFacingRight);
+        if(skillInventory.Count > 0)
+        {
+            animator.SetTrigger("AttackTrigger");
+            skillInventory[0].SpawnPrefabEffect(spawnPoint.position, isFacingRight);
+            skillInventory.RemoveAt(0);
+        }
     }
 
     private void Flip()

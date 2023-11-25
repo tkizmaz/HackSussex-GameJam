@@ -140,7 +140,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!95 &318291985
 Animator:
   serializedVersion: 5
@@ -211,7 +211,7 @@ SpriteRenderer:
   m_Size: {x: 0.725, y: 0.86}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!4 &318291987
@@ -338,7 +338,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!95 &1102728889
 Animator:
   serializedVersion: 5
@@ -542,7 +542,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!114 &1253736779
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -560,6 +560,10 @@ MonoBehaviour:
   animator: {fileID: 1253736781}
   skillType: {fileID: 11400000, guid: ac00e337a0a5b40ac9b12929c36db626, type: 2}
   spawnPoint: {fileID: 1579973373}
+  skills:
+  - {fileID: 11400000, guid: ac00e337a0a5b40ac9b12929c36db626, type: 2}
+  - {fileID: 11400000, guid: e2202e367190b4a49a6008ae607a4678, type: 2}
+  - {fileID: 11400000, guid: 56af7aedb97784729a997597055a7ab8, type: 2}
 --- !u!95 &1253736781
 Animator:
   serializedVersion: 5

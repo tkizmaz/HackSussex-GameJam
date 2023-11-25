@@ -15,11 +15,17 @@ public class CharacterMovement : MonoBehaviour
 
     [SerializeField]
     private Animator animator;
+    public SkillType skillType;
+    private float horizontal;
+    [SerializeField]
+    private Transform spawnPoint;
+    private bool isFacingRight = true;
 
     // Start is called before the first frame update
     void Start()
     {
         characterBody = this.GetComponent<Rigidbody2D>();
+        horizontal = 1f;
     }
 
     // Update is called once per frame
@@ -42,12 +48,16 @@ public class CharacterMovement : MonoBehaviour
                 onFloor = false;
             }
 
-            if (Input.GetKeyDown(KeyCode.Q))
-            {
-                animator.SetTrigger("AttackTrigger");
-            }
-
+            characterBody.velocity = Vector2.up * jump;
+            onFloor = false;
         }
+
+        if (Input.GetKeyDown(KeyCode.X))
+        {
+            Attack();
+            animator.SetTrigger("AttackTrigger");
+        }
+        Flip();
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -55,6 +65,23 @@ public class CharacterMovement : MonoBehaviour
         if(collision.gameObject.tag == "Floor")
         {
             onFloor = true;
+        }
+    }
+
+    private void Attack()
+    {
+        skillType.SpawnPrefabEffect(spawnPoint.position, isFacingRight);
+    }
+
+    private void Flip()
+    {
+        if(isFacingRight && horizontal < 0 || !isFacingRight && horizontal > 0)
+        {
+            isFacingRight = !isFacingRight;
+            Vector3 localScale = transform.localScale;
+            localScale.x *= -1f;
+            transform.localScale = localScale;
+
         }
     }
 }

@@ -9,8 +9,10 @@ public class CharacterMovement : MonoBehaviour
     private int moveSpeed;
     [SerializeField]
     private int jump;
+
     private bool onFloor;
     private Rigidbody2D characterBody;
+
     // Start is called before the first frame update
     void Start()
     {

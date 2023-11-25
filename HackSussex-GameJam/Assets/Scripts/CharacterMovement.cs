@@ -13,6 +13,9 @@ public class CharacterMovement : MonoBehaviour
     private bool onFloor;
     private Rigidbody2D characterBody;
 
+    [SerializeField]
+    private Animator animator;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -29,15 +32,11 @@ public class CharacterMovement : MonoBehaviour
     {
         if (onFloor)
         {
-            if (Input.GetKeyDown(KeyCode.D))
-            {
-                characterBody.velocity = new Vector2(moveSpeed, 0);
-            }
-            else if (Input.GetKeyDown(KeyCode.A))
-            {
-                characterBody.velocity = new Vector2(-moveSpeed, 0);
-            }
-            else if (Input.GetKeyDown(KeyCode.Space))
+            animator.SetFloat("Horizontal", Input.GetAxis("Horizontal"));
+            Vector3 horizontal = new Vector3(Input.GetAxis("Horizontal"), 0.0f, 0.0f);
+            transform.position = transform.position + horizontal * Time.deltaTime;
+
+            if (Input.GetKeyDown(KeyCode.Space))
             {
                 characterBody.velocity = Vector2.up * jump;
                 onFloor = false;

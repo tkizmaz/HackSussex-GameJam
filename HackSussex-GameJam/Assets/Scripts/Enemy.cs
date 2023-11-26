@@ -7,24 +7,25 @@ public class Enemy : MonoBehaviour
     [SerializeField]
     protected int health;
     [SerializeField]
-    protected List<SkillType> vulnerabilities;
+    protected List<int> vulnerabilities = new List<int>();
     // Start is called before the first frame update
     protected virtual void Start()
     {
         health = 100;
+        vulnerabilities.Add(0);
     }
 
-    protected virtual void TakeDamage(SkillType skillType)
+    public virtual void TakeDamage(int tag, int damage)
     {
-        foreach(SkillType skill in vulnerabilities)
+        foreach(int eachTag in vulnerabilities)
         {
-            if(skill == skillType)
+            if(tag == eachTag)
             {
-                health -= skill.Damage * 2;
+                health -= damage * 2;
             }
             else
             {
-                health -= skill.Damage;
+                health -= damage;
             }
         }
 
@@ -32,6 +33,8 @@ public class Enemy : MonoBehaviour
         {
             Destroy(this.gameObject);
         }
+
+        Debug.Log(health);
     }
 
 

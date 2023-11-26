@@ -15,23 +15,20 @@ public class CharacterMovement : MonoBehaviour
 
     [SerializeField]
     private Animator animator;
-    public SkillType skillType;
     private float horizontal;
     [SerializeField]
     private Transform spawnPoint;
     private bool isFacingRight = true;
     private int health = 100;
-    private List<SkillType> skillInventory;
+    private List<GameObject> skillInventory = new List<GameObject>(3);
+    private int selectedSkillTag = 0;
 
-
-    [SerializeField]
-    private List<SkillType> skills;
     // Start is called before the first frame update
     void Start()
     {
-        skillInventory = new List<SkillType>();
         characterBody = this.GetComponent<Rigidbody2D>();
         horizontal = 1f;
+        FillSkillInventory();
     }
 
     // Update is called once per frame
@@ -56,6 +53,21 @@ public class CharacterMovement : MonoBehaviour
         {
             Attack();
         }
+
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            selectedSkillTag = 0;
+        }
+
+        if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            selectedSkillTag = 1;
+        }
+
+        if (Input.GetKeyDown(KeyCode.Alpha3))
+        {
+            selectedSkillTag = 2;
+        }
         Flip();
     }
 
@@ -65,43 +77,22 @@ public class CharacterMovement : MonoBehaviour
         {
             onFloor = true;
         }
+    }
 
-        else if(collision.gameObject.tag == "Fire")
+    private void FillSkillInventory()
+    {    
+        for(int i = 0; i < GameManager.instance.skills.Count; i++)
         {
-            if(skillInventory.Count < 2)
-            {
-                skillInventory.Add(skills[0]);
-                Destroy(collision.gameObject);
-            }
-        }
-
-        else if (collision.gameObject.tag == "Lightning")
-        {
-            if (skillInventory.Count < 2)
-            {
-                skillInventory.Add(skills[1]);
-                Destroy(collision.gameObject);
-            }
-        }
-
-        else if (collision.gameObject.tag == "Water")
-        {
-            if (skillInventory.Count < 2)
-            {
-                skillInventory.Add(skills[2]);
-                Destroy(collision.gameObject);
-            }
+            skillInventory.Add(GameManager.instance.skills[i]);
         }
     }
 
     private void Attack()
     {
-        if(skillInventory.Count > 0)
-        {
-            animator.SetTrigger("AttackTrigger");
-            skillInventory[0].SpawnPrefabEffect(spawnPoint.position, isFacingRight);
-            skillInventory.RemoveAt(0);
-        }
+        animator.SetTrigger("AttackTrigger");
+        int direction = isFacingRight ? 1 : -1;
+        skillInventory[selectedSkillTag].GetComponent<Weapon>().SetWeaponTag(selectedSkillTag);
+        skillInventory[selectedSkillTag].GetComponent<Weapon>().Shoot(selectedSkillTag, spawnPoint.position, direction);
     }
 
     private void Flip()

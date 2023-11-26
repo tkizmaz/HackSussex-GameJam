@@ -7,6 +7,9 @@ TagManager:
   - Floor
   - Weapon
   - Fire
+  - Water
+  - Lightning
+  - Enemy
   layers:
   - Default
   - TransparentFX

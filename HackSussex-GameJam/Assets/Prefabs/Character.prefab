@@ -129,7 +129,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 2
-  jump: 5
+  jump: 4
   animator: {fileID: 2981835435461059306}
   skillType: {fileID: 11400000, guid: ac00e337a0a5b40ac9b12929c36db626, type: 2}
   spawnPoint: {fileID: 5459679586955565970}
@@ -167,7 +167,7 @@ BoxCollider2D:
   m_GameObject: {fileID: 3717890877724219135}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: e8982efad115940bd8b1dae47dc446ba, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
